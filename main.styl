@@ -1,19 +1,73 @@
 @import 'jeet'
+@import 'colors'
 
-edit()
-  
-
+//edit()
   
 body
+  font-family 'Droid Sans'
+  position absolute
+  overflow hidden
   width 100%
   height 100%
   margin 0
 
-aside
-  transition 
-  col(1/5)
-  shift(1/5)
-  margin-top 4%
   
-h1
-  center(25%)
+//Set divisions between sections of page
+upperSplit = 24%
+lowerSplit = 100% - upperSplit
+
+leftSplit = 1/7
+rightSplit = 1 - leftSplit
+
+//Assign a class to have a full-size background image
+bgImage(image)
+  url = image + '.jpg'
+  background-image url(url)
+  background-size cover
+  background-position center
+  
+thinLine(clr)
+  border-top solid 5px clr
+  
+level(lvl)
+  z-index lvl
+  position relative
+
+//Left sidebar with QR & badges
+.sidebar
+  span(leftSplit)
+  height 100%
+  level(3)
+  
+  //QR canvas
+  .qr
+    background coolGray
+    height upperSplit
+    level(4)
+    
+  //Contains badges
+  .badges
+    height lowerSplit
+    bgImage(ethnography)
+    thinLine(ethnographyLt)
+    
+//Right side of app, contains nav and content panes
+.content
+  span(rightSplit)
+  height 100%
+
+//Upper navigation section
+nav
+  height upperSplit
+  bgImage(pattern)
+  level(2)
+  
+.panes
+  width 600%
+  height 100%
+  left 0
+  level(1)
+  
+.pane
+  span(1/6)
+  height 100%

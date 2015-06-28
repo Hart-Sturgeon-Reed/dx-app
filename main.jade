@@ -1,18 +1,37 @@
-template(name="base")
-  aside
-    button Click Me
-    p You've pressed the button {{counter}} times.
-  
-template(name="main")
+template(name="layout")
   head
     title dx-app
+    
+  meta(name="viewport" content="width=device-width, initial-scale=1, user-scalable=no")
+  meta(name="mobile-web-app-capable" content="yes")
 
   body
-    h1 Quak!
+    +sidebar
+    +main
     
-    +base
+template(name="sidebar")
+  .sidebar
+    .qr
+    .badges
     
-    +base 
+template(name="main")
+  .content
+    +nav
+    .panes
+      +yield "content"
     
-    +base
+template(name="nav")
+  nav
   
+  
+//Actual content panes 
+template(name="base")
+  .pane
+    button {{btnTxt}}
+    p You've pressed the button {{counter}} times.
+  .pane
+    button {{btnTxt}}
+    p You've pressed the button {{counter}} times.
+  .pane
+    button {{btnTxt}}
+    p You've pressed the button {{counter}} times.
