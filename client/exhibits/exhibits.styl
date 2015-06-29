@@ -1,18 +1,64 @@
+@import 'jeet'
+@import 'rupture'
 @import 'client/colors'
+@import 'client/fonts'
+@import 'main'
 
+//edit()
+
+.pane > video
+  center(80%)
+  
+.videoPane
+  @extend .pane
+
+.pane > .container
+  center(90%)
+  padding-top 10%
+  +below(800px)
+    padding-top 2%
+  
+.header
+  col(1/4)
+
+.title
+  font-size 4rem
+  font-family 'Unica Thin'
+  margin-bottom 4%
+  +below(960px)
+    font-size 2.4rem
+  +below(800px)
+    font-size 1.8rem
+      
+.manufacturer
+  font-size 2.4rem
+  font-family 'Unica Thin'
+  +below(800px)
+    font-size 1.7rem
+    
+.blurb
+  margin-top 15%
+  +below(800px)
+    font-size 0.95rem
+    
+article
+  col(3/4)
+  +below(800px)
+    font-size 0.95rem
+  
 #one
   height 100%
-  background ethnographyDk
+//  background performanceDk
   
 #two
   height 100%
-  background natureDk
+//  background natureDk
   
 #three
   height 100%
-  background performanceDk
+//  background ethnographyDk
   
 #four
   height 100%
-  background fashionDk
+//  background fashionDk
   

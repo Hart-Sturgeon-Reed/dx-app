@@ -14,6 +14,10 @@ template(name="sidebar")
     .qr
       +qrScanner(facing="environment")
     .badges
+      .badge#nature
+      .badge#performance.active
+      .badge#fashion
+      .badge#ethnography
     
 template(name="main")
   .content
@@ -22,4 +26,19 @@ template(name="main")
       +yield "content"
     
 template(name="nav")
-  nav
+  nav(width="{{pctComplete}}")
+    .line
+      .fill
+    .card#card1
+      .icon
+    .card#card2
+      .icon
+    .card#card3
+      .icon
+    .card#card4
+      .icon
+    .card#card5
+      .icon
+    .card#card6
+      .icon
+    .logo

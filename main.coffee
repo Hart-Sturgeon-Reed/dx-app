@@ -6,33 +6,47 @@ if Meteor.isClient
     2 :'Quak'
     3 :'Queequeg'
     
-  lScroll = 0
+  scroll = 0
   paneWidth = 0
   panes = null
   
   # Animation functions
   swipeLeft = ->
-    if lScroll-paneWidth > -parseInt(panes.width()-paneWidth)
-      TweenMax.to('.panes',0.6,{left:lScroll-=paneWidth,ease:Power4.easeOut})
+    if scroll-paneWidth > -parseInt(panes.width()-paneWidth)
+      TweenMax.to('.panes',0.6,{left:scroll-=paneWidth,ease:Power4.easeOut})
+      Session.set('pct', Session.get('pct') + 20)
+      
     
   swipeRight = ->
-    if lScroll < 0
-      TweenMax.to('.panes',0.6,{left:lScroll+=paneWidth,ease:Power4.easeOut})
+    if scroll < 0
+      TweenMax.to('.panes',0.6,{left:scroll+=paneWidth,ease:Power4.easeOut})
+      Session.set('pct', Session.get('pct') - 20)
+      
+  # QR scanner
+  qrScanner.on "scan", (err, message) ->
+    if message?
+      Router.go(message)
 
   # Init values
   Session.setDefault 'counter', 0
+  Session.setDefault 'pct', 0
   
   # After rendering
-  Template.main.rendered = ->
+  Template.layout.rendered = ->
     panes = $('.panes')
     body = $('body')
     paneWidth = parseInt panes.width()/6
     body.hammer()
   
   # Helpers
-  Template.main.helpers
-    counter: ->
-      Session.get 'counter'
+  Template.layout.helpers
+    message: ->
+      qrScanner.message()
+      
+  Template.nav.helpers
+    pctComplete: ->
+      pct = Session.get('pct') + '%'
+      TweenMax.to '.fill', 0.6, width:pct
   
   # Events
   Template.main.events
@@ -47,22 +61,25 @@ if Meteor.isClient
   Router.route '/', ->
     this.layout 'layout'
     this.render 'exhibit1', {
+      to: 'content'
       data: ->
         btnTxt: btnTxt[1]
-      to: 'content'
+        counter: -> Session.get 'counter'
     }
+    
   Router.route '/:_id', ->
     id = this.params._id
     console.log(id)
     this.layout 'layout'
     this.render 'exhibit'+id, {
       data: ->
-        btnTxt: btnTxt[1]
+        btnTxt: btnTxt[1],
+        counter: -> Session.get 'counter'
       to: 'content'
     }
     
 #Server side
 if Meteor.isServer
   Meteor.startup(->
-    console.log 'quak'
+    console.log 'server started'
   )
