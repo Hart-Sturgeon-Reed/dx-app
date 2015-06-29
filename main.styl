@@ -47,13 +47,13 @@ level(lvl)
   //QR canvas
   .qr
     height upperSplit
-    background performanceLt
+    background perLt
     
   //Contains badges
   .badges
     height lowerSplit
     bgImage(performance)
-    box-shadow 4px 0px 5px 0px rgba(0,0,0,0.11)
+    //box-shadow 4px 0px 5px 0px rgba(0,0,0,0.11)
     level(4)
     
     .badge
@@ -62,7 +62,7 @@ level(lvl)
       width 80%
       margin-left 20%
       height 20%
-      margin-bottom 5%
+      margin-bottom 10%
       background-size contain
       background-repeat no-repeat
 
@@ -84,56 +84,6 @@ level(lvl)
 .content
   span(rightSplit)
   height 100%
-
-//Upper navigation section
-nav
-  height upperSplit
-  bgImage(pattern)
-  box-shadow inset 5px -2px 5px 0px rgba(0,0,0,0.11)
-  level(2)
-  
-  .card
-    col(1/7)
-    level(2)
-    height 100%
-    
-    .icon
-      margin-left 31%
-      margin-top 36%
-      width 33%
-      height 32%
-      border-radius 50px
-      border solid 0.3rem performanceDk
-      background white
-      
-  .logo
-    col(1/7)
-    level(2)
-    background-image url(logo.png)
-    background-size contain
-    background-repeat no-repeat
-    background-position center
-    left -2%
-    height 100%
-      
-  .line
-    width 75%
-    level(1)
-    border-radius 50px
-    margin-left 5%
-    height 0.6rem
-    background performanceDk
-    position absolute
-    top 52%
-    +below(800px)
-      height 0.3rem
-      top 53%
-    
-    .fill
-      background performanceLt
-      width 0%
-      height 100%
-      transition width 0.6s easeOut
     
 .panes
   width 600%

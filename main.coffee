@@ -6,21 +6,43 @@ if Meteor.isClient
     2 :'Quak'
     3 :'Queequeg'
     
-  scroll = 0
-  paneWidth = 0
-  panes = null
+  scroll = 0 # Amount .panes div has been scrolled
+  paneWidth = 0 # Size of each pane
+  panes = null # The div containing all the content panes
+  cards = null # A collection of all the card markers in the nav bar
   
   # Animation functions
   swipeLeft = ->
     if scroll-paneWidth > -parseInt(panes.width()-paneWidth)
       TweenMax.to('.panes',0.6,{left:scroll-=paneWidth,ease:Power4.easeOut})
       Session.set('pct', Session.get('pct') + 20)
-      
+      setCards()
     
   swipeRight = ->
     if scroll < 0
       TweenMax.to('.panes',0.6,{left:scroll+=paneWidth,ease:Power4.easeOut})
       Session.set('pct', Session.get('pct') - 20)
+      setCards()
+      
+  setCards = ->
+    pct = Session.get('pct')
+    cardsFilled = (pct/100) * 5
+    console.log cardsFilled
+    for card, index in cards
+      if index == cardsFilled
+        if $(card).hasClass 'viewed' 
+          $(card).removeClass 'viewed'
+        $(card).addClass 'active'
+      else if index <= cardsFilled
+        if $(card).hasClass 'active' 
+          $(card).removeClass 'active'
+        $(card).addClass 'viewed'
+      else 
+        if $(card).hasClass 'viewed' 
+          $(card).removeClass 'viewed'
+        if $(card).hasClass 'active' 
+          $(card).removeClass 'active'
+      
       
   # QR scanner
   qrScanner.on "scan", (err, message) ->
@@ -35,6 +57,8 @@ if Meteor.isClient
   Template.layout.rendered = ->
     panes = $('.panes')
     body = $('body')
+    cards = $('.icon')
+    setCards()
     paneWidth = parseInt panes.width()/6
     body.hammer()
   
