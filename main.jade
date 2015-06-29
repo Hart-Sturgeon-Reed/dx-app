@@ -12,6 +12,7 @@ template(name="layout")
 template(name="sidebar")
   .sidebar
     .qr
+      +qrScanner(facing="environment")
     .badges
     
 template(name="main")
@@ -22,16 +23,3 @@ template(name="main")
     
 template(name="nav")
   nav
-  
-  
-//Actual content panes 
-template(name="base")
-  .pane
-    button {{btnTxt}}
-    p You've pressed the button {{counter}} times.
-  .pane
-    button {{btnTxt}}
-    p You've pressed the button {{counter}} times.
-  .pane
-    button {{btnTxt}}
-    p You've pressed the button {{counter}} times.

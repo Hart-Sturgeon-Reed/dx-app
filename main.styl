@@ -1,5 +1,6 @@
 @import 'jeet'
-@import 'colors'
+@import 'rupture'
+@import 'client/colors'
 
 //edit()
   
@@ -13,7 +14,7 @@ body
 
   
 //Set divisions between sections of page
-upperSplit = 24%
+upperSplit = 19.2%
 lowerSplit = 100% - upperSplit
 
 leftSplit = 1/7
@@ -24,7 +25,7 @@ bgImage(image)
   url = image + '.jpg'
   background-image url(url)
   background-size cover
-  background-position center
+  background-position bottom
   
 thinLine(clr)
   border-top solid 5px clr
@@ -41,15 +42,14 @@ level(lvl)
   
   //QR canvas
   .qr
-    background coolGray
     height upperSplit
-    level(4)
+    background ethnographyLt
     
   //Contains badges
   .badges
     height lowerSplit
     bgImage(ethnography)
-    thinLine(ethnographyLt)
+    level(4)
     
 //Right side of app, contains nav and content panes
 .content
@@ -60,6 +60,7 @@ level(lvl)
 nav
   height upperSplit
   bgImage(pattern)
+  box-shadow inset 5px -2px 5px 0px rgba(0,0,0,0.11)
   level(2)
   
 .panes
