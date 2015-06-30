@@ -1,5 +1,6 @@
 @import 'jeet'
 @import 'rupture'
+@import 'client/util'
 @import 'client/colors'
 @import 'client/fonts'
 
@@ -15,28 +16,14 @@ body
 
   
 //Set divisions between sections of page
-upperSplit = 19.2%
+upperSplit = 19.2% //Change this to alter ratio between top & bottom sections [percent]
 lowerSplit = 100% - upperSplit
 
 mobileSplit = 16%
 mobileLower = 100% - mobileSplit
 
-leftSplit = 1/7
+leftSplit = 1/7 //Change this to alter ratio between left & right sections [fraction]
 rightSplit = 1 - leftSplit
-
-//Assign a class to have a full-size background image
-bgImage(image)
-  url = image + '.jpg'
-  background-image url(url)
-  background-size cover
-  background-position bottom
-  
-thinLine(clr)
-  border-top solid 5px clr
-  
-level(lvl)
-  z-index lvl
-  position relative
 
 //Left sidebar with QR & badges
 .sidebar
@@ -49,24 +36,24 @@ level(lvl)
     height upperSplit
     background perLt
     
-  //Contains badges
+  //Sidebar with image & badges
   .badges
     height lowerSplit
     bgImage(performance)
-    //box-shadow 4px 0px 5px 0px rgba(0,0,0,0.11)
+    // box-shadow 4px 0px 5px 0px rgba(0,0,0,0.11) //Optional drop shadow on sidebar
     level(4)
     
     .badge
       position relative
       top 5%
       width 80%
-      margin-left 20%
+      margin-left 18%
       height 20%
       margin-bottom 10%
       background-size contain
       background-repeat no-repeat
 
-// Badges
+// Badge states
 #nature
   background-image url(badges/nature_0.png)
 #performance
@@ -80,7 +67,7 @@ level(lvl)
 #ethnography.active
   background-image url(badges/ethnography.png)
         
-//Right side of app, contains nav and content panes
+//Right side of app, contains nav and content panes [nav is in separate nav.styl file]
 .content
   span(rightSplit)
   height 100%
