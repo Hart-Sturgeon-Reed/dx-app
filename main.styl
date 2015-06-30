@@ -1,5 +1,6 @@
 @import 'jeet'
 @import 'rupture'
+@import 'client/util'
 @import 'client/colors'
 @import 'client/fonts'
 
@@ -15,28 +16,14 @@ body
 
   
 //Set divisions between sections of page
-upperSplit = 19.2%
+upperSplit = 19.2% //Change this to alter ratio between top & bottom sections [percent]
 lowerSplit = 100% - upperSplit
 
 mobileSplit = 16%
 mobileLower = 100% - mobileSplit
 
-leftSplit = 1/7
+leftSplit = 1/7 //Change this to alter ratio between left & right sections [fraction]
 rightSplit = 1 - leftSplit
-
-//Assign a class to have a full-size background image
-bgImage(image)
-  url = image + '.jpg'
-  background-image url(url)
-  background-size cover
-  background-position bottom
-  
-thinLine(clr)
-  border-top solid 5px clr
-  
-level(lvl)
-  z-index lvl
-  position relative
 
 //Left sidebar with QR & badges
 .sidebar
@@ -47,26 +34,26 @@ level(lvl)
   //QR canvas
   .qr
     height upperSplit
-    background performanceLt
+    background perLt
     
-  //Contains badges
+  //Sidebar with image & badges
   .badges
     height lowerSplit
     bgImage(performance)
-    box-shadow 4px 0px 5px 0px rgba(0,0,0,0.11)
+    // box-shadow 4px 0px 5px 0px rgba(0,0,0,0.11) //Optional drop shadow on sidebar
     level(4)
     
     .badge
       position relative
       top 5%
       width 80%
-      margin-left 20%
+      margin-left 18%
       height 20%
-      margin-bottom 5%
+      margin-bottom 10%
       background-size contain
       background-repeat no-repeat
 
-// Badges
+// Badge states
 #nature
   background-image url(badges/nature_0.png)
 #performance
@@ -80,60 +67,10 @@ level(lvl)
 #ethnography.active
   background-image url(badges/ethnography.png)
         
-//Right side of app, contains nav and content panes
+//Right side of app, contains nav and content panes [nav is in separate nav.styl file]
 .content
   span(rightSplit)
   height 100%
-
-//Upper navigation section
-nav
-  height upperSplit
-  bgImage(pattern)
-  box-shadow inset 5px -2px 5px 0px rgba(0,0,0,0.11)
-  level(2)
-  
-  .card
-    col(1/7)
-    level(2)
-    height 100%
-    
-    .icon
-      margin-left 31%
-      margin-top 36%
-      width 33%
-      height 32%
-      border-radius 50px
-      border solid 0.3rem performanceDk
-      background white
-      
-  .logo
-    col(1/7)
-    level(2)
-    background-image url(logo.png)
-    background-size contain
-    background-repeat no-repeat
-    background-position center
-    left -2%
-    height 100%
-      
-  .line
-    width 75%
-    level(1)
-    border-radius 50px
-    margin-left 5%
-    height 0.6rem
-    background performanceDk
-    position absolute
-    top 52%
-    +below(800px)
-      height 0.3rem
-      top 53%
-    
-    .fill
-      background performanceLt
-      width 0%
-      height 100%
-      transition width 0.6s easeOut
     
 .panes
   width 600%

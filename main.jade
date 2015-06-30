@@ -8,7 +8,7 @@ template(name="layout")
   body
     +sidebar
     +main
-    
+//Left side of app, qr scanner & badges    
 template(name="sidebar")
   .sidebar
     .qr
@@ -18,27 +18,27 @@ template(name="sidebar")
       .badge#performance.active
       .badge#fashion
       .badge#ethnography
-    
+//Right side of app, navigation icons & content  
 template(name="main")
   .content
     +nav
     .panes
       +yield "content"
-    
+//Animated nav menu  
 template(name="nav")
-  nav(width="{{pctComplete}}")
+  nav
     .line
       .fill
-    .card#card1
+    .card#card1(num='0')
       .icon
-    .card#card2
+    .card#card2(num='1')
       .icon
-    .card#card3
+    .card#card3(num='2')
       .icon
-    .card#card4
+    .card#card4(num='3')
       .icon
-    .card#card5
+    .card#card5(num='4')
       .icon
-    .card#card6
+    .card#card6(num='5')
       .icon
     .logo

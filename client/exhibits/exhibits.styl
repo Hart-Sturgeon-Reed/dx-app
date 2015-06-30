@@ -6,59 +6,64 @@
 
 //edit()
 
-.pane > video
+.pane > video, .videoPane > video
+  margin-top 3.5%
   center(80%)
   
 .videoPane
   @extend .pane
+  background coolGrey
 
 .pane > .container
   center(90%)
   padding-top 10%
-  +below(800px)
-    padding-top 2%
+  +below(960px) //Tablet breakpoint
+    padding-top 5%
+  +below(800px) //Phone breakpoint
+    padding-top 1%
   
-.header
+aside
   col(1/4)
 
+.title, .manufacturer
+  font-family 'Unica Thin'
+  
 .title
   font-size 4rem
-  font-family 'Unica Thin'
   margin-bottom 4%
-  +below(960px)
-    font-size 2.4rem
-  +below(800px)
+  +below(960px) //Tablet breakpoint
+    font-size 3.2rem
+  +below(800px) //Phone breakpoint
+    margin-bottom 1.2%
     font-size 1.8rem
-      
+  
 .manufacturer
   font-size 2.4rem
-  font-family 'Unica Thin'
-  +below(800px)
+  color perDk
+  +below(800px) //Phone breakpoint
     font-size 1.7rem
     
 .blurb
   margin-top 15%
-  +below(800px)
+  +below(800px) //Phone breakpoint
     font-size 0.95rem
     
 article
-  col(3/4)
-  +below(800px)
+  col(23/32)
+  font-size 1.2rem
+  +below(800px) //Phone breakpoint
+    col(3/4)
     font-size 0.95rem
   
 #one
   height 100%
-//  background performanceDk
   
 #two
   height 100%
-//  background natureDk
   
 #three
   height 100%
-//  background ethnographyDk
   
 #four
   height 100%
-//  background fashionDk
   

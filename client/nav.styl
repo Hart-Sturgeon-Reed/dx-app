@@ -1,0 +1,94 @@
+@import 'jeet'
+@import 'rupture'
+@import 'client/colors'
+@import 'client/fonts'
+@import 'client/util'
+@import 'main'
+
+//edit()
+
+//Upper navigation section
+nav
+  height upperSplit
+  bgImage(pattern)
+  box-shadow inset 5px -2px 5px 0px rgba(0,0,0,0.11)
+  level(2)
+  padding-left 3%
+  
+  //Each chunk of the nav bar [full height & 1/7 width]
+  .card
+    col(1/7)
+    level(2)
+    height 100%
+    
+    //The icon that indicates viewed and active panes
+    .icon
+      //Animation:
+      transition border-color 0.6s, width 0.6s, height 0.6s, margin 0.6s, background 0.8s, box-shadow 0.6s
+      transition-delay 0.2s
+      
+      box-shadow 0px 0px 4px 0px rgba(1,1,1,0.41)
+      margin-left 31%
+      margin-top 38%
+      width 1.8rem
+      height 1.8rem
+      border-radius 500px
+      border solid 0.5rem perDk
+      background perDk
+      +below(960px) //Tablet breakpoint
+        margin-top 40%
+        width 20px
+        height 20px
+        border-width 0.2rem
+      +below(800px) //Phone breakpoint
+        margin-top 36%
+        width 12px
+        height 12px
+        border-width 0.3rem
+     
+    //Its states
+    .icon.viewed
+      border-color perLt
+      background perLt
+      
+    .icon.active
+      border-color perLt
+      background white
+      //box-shadow inset 0px 0px 6px 0px perLt, 0px 0px 4px 0px rgba(1,1,1,0.41) //Fancy inset shadow glow effect
+  
+  //The DX logo
+  .logo
+    col(1/7)
+    level(2)
+    background-image url(satLogo.png)
+    background-size contain
+    background-repeat no-repeat
+    background-position center
+    left -3.7%
+    top 30%
+    height 40%
+  
+  //Shows progress through exhibit
+  .line
+    width 72%
+    level(1)
+    border-radius 50px
+    box-shadow 4px 2px 5px 0px rgba(0,0,0,0.11)
+    margin-left 5%
+    height 0.4rem
+    background perDk
+    position absolute
+    top 48%
+    +below(960px) //Tablet breakpoint
+      top 49%
+      height 0.2rem
+    +below(800px) //Phone breakpoint
+      height 0.2rem
+      top 47%
+    
+    .fill
+      //Animation on line
+      transition width 0.4s easeOut
+      background perLt
+      width 0%
+      height 100%
