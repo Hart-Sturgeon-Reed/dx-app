@@ -4,11 +4,17 @@
 @import 'client/fonts'
 @import 'main'
 
-//edit()
+    
+splitLeft = 3/10
+splitRight = 1 - splitLeft
 
 .pane > video, .videoPane > video
   margin-top 3.5%
   center(80%)
+
+.pane > img
+  center(100%)
+  margin-top 7.5%
   
 .videoPane
   @extend .pane
@@ -47,6 +53,32 @@ aside
   margin-top 15%
   +below(800px) //Phone breakpoint
     font-size 0.95rem
+    
+/*specific for text without titles*/
+.container > .text
+  center(72%)    
+  font-size 1.2rem
+  +below(800px)
+     center(75%)
+     font-size 0.95rem 
+.text
+  center(100%)
+  margin-top 7%
+  
+/*div for two pictures*/    
+.imgLeft
+    col(splitLeft)
+    margin-top 7.5%
+.imgLeft > img
+    center(100%)
+
+.imgRight
+    col(splitRight)
+    margin-top 7.5%
+
+.imgRight > img
+    center(100%)
+
     
 article
   col(23/32)

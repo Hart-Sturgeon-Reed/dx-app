@@ -1,41 +1,43 @@
 template(name="exhibit1")
-  +exhibit(num="one" theme="eth")
-  .pane
-    .container
-      .title Eepmon Synthesis Parka
-      aside
-        .manufacturer Canada Goose
-      article 
-        | The Eepmon Synthesis Parka is a collaboration with Canada Goose. It is both designed and made in Canada,
-        | using hand craft skills coupled with high performance fabrics.
-        br
-        br
-        | Having these production skills allows the 
-        | brand great freedom in focusing on small but important details that form the company’s reputation for high
-        | quality performance outerwear.  
-
-  .pane
-    video(loop preload src="video/eepmon.mp4")
-
-  .pane
-    .container
-      .title Eepmon Synthesis Parka
-      aside
-        .manufacturer Canada Goose
-
-      article 
-        | The inside lining of the Synthesis Parka reveals the beautifully crafted artwork by Eepmon,
-        | which tells his story as a Canadian artist who bridges both Eastern and Western cultures.
-        | The printed image depicts geese migrating among colorful fall leaves, eggs, and landmarks
-        | symbolic to Canada.
-
-  .pane
-    video(loop preload src="video/canadaGoose.mp4")
-
-  .pane
-    button {{btnTxt}}
-    p You've pressed the button {{counter}} times.
-
-  .pane
-    button {{btnTxt}}
-    p You've pressed the button {{counter}} times.
+  .exhibit#one
+    .pane
+      .container
+        .title Eepmon Synthesis Parka
+        aside
+          .manufacturer Canada Goose
+        article 
+          | The Eepmon Synthesis Parka is a collaboration with Canada Goose. It is both designed and made in Canada,
+          | using hand craft skills coupled with high performance fabrics.
+          br
+          br
+          | Having these production skills allows the 
+          | brand great freedom in focusing on small but important details that form the company’s reputation for high
+          | quality performance outerwear.  
+        
+    .pane
+      video(loop muted preload autoplay src="video/eepmon.ogv")
+      
+    .pane
+      .container
+        .text 
+          | The inside lining of the Synthesis Parka reveals the beautifully crafted artwork by Eepmon,
+          | which tells his story as a Canadian artist who bridges both Eastern and Western cultures.
+          | The printed image depicts geese migrating among colorful fall leaves, eggs, and landmarks
+          | symbolic to Canada.
+        
+    .pane
+      video(loop muted preload autoplay src="video/canadaGoose.ogv")
+      
+    .pane
+      .container
+        .text
+          | Started in a small warehouse in Toronto, Canada Goose was founded in 1957 by a Polish immigrant, 
+          | Sam Tick, under the name Metro Sportswear Ltd. 
+          br
+          br
+          | In 1985, the down filled parkas were officially registered under the name "Snow Goose". 
+          | In the early 1990s, Metro began selling its products in Europe, 
+          | where the Snow Goose name was already registered. So, Metro registered its European products under the name Canada Goose.
+      
+    .pane
+      img(src="Canada Goose logo.png")
