@@ -8,20 +8,20 @@
 splitLeft = 3/10
 splitRight = 1 - splitLeft
 
-.pane > video, .videoPane > video
+.pane > video
   margin-top 3.5%
   center(80%)
+  
+.pane.dark
+  background #000
 
 .pane > img
   center(100%)
   margin-top 7.5%
-  
-.videoPane
-  @extend .pane
-  background coolGrey
 
 .pane > .container
   center(90%)
+  height 100%
   padding-top 10%
   +below(960px) //Tablet breakpoint
     padding-top 5%
