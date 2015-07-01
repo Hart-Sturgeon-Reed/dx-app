@@ -33,8 +33,8 @@ nav
       width 1.8rem
       height 1.8rem
       border-radius 500px
-      border solid 0.5rem perDk
-      background perDk
+      border solid 0.5rem black
+      background black
       +below(960px) //Tablet breakpoint
         margin-top 40%
         width 20px
@@ -45,16 +45,57 @@ nav
         width 12px
         height 12px
         border-width 0.3rem
+        
+    .icon.eth
+      border-color ethDk
+      background ethDk
+      
+    .icon.fas
+      border-color fasDk
+      background fasDk
+      
+    .icon.per
+      border-color perDk
+      background perDk
+      
+    .icon.nat
+      border-color natDk
+      background natDk
      
     //Its states
     .icon.viewed
+      border-color coolGrey
+      background coolGrey
+    
+    .icon.viewed.eth
+      border-color ethLt
+      background ethLt
+    
+    .icon.viewed.per
       border-color perLt
       background perLt
       
+    .icon.viewed.nat
+      border-color natLt
+      background natLt
+      
+    .icon.viewed.fas
+      border-color fasLt
+      background fasLt
+      
     .icon.active
-      border-color perLt
+      border-color coolGrey
       background white
       //box-shadow inset 0px 0px 6px 0px perLt, 0px 0px 4px 0px rgba(1,1,1,0.41) //Fancy inset shadow glow effect
+      
+    .icon.active.eth
+      border-color ethLt
+    .icon.active.per
+      border-color perLt
+    .icon.active.nat
+      border-color natLt
+    .icon.active.fas
+      border-color fasLt
   
   //The DX logo
   .logo
@@ -76,7 +117,7 @@ nav
     box-shadow 4px 2px 5px 0px rgba(0,0,0,0.11)
     margin-left 5%
     height 0.4rem
-    background perDk
+    background black
     position absolute
     top 48%
     +below(960px) //Tablet breakpoint
@@ -89,6 +130,27 @@ nav
     .fill
       //Animation on line
       transition width 0.4s easeOut
-      background perLt
+      background coolGrey
       width 0%
       height 100%
+      
+  .line.eth
+    background ethDk
+    .fill
+      background ethLt
+    
+  .line.per
+    background perDk
+    .fill
+      background perLt
+    
+  .line.fas
+    background fasDk
+    .fill
+      background fasLt
+    
+  .line.nat
+    background natDk
+    .fill
+      background natLt
+  

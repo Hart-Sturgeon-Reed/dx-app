@@ -1,3 +1,5 @@
+// A function to asynchronously load fonts from Google Font API
+
 Meteor.startup(function() {
   WebFontConfig = {
     google: { families: [ 'Roboto Slab:700,400:latin', 'Droid Sans:700,400,300:latin', 'Quicksand:700,400,300:latin' ] }

@@ -15,31 +15,39 @@ body
   margin 0
 
   
-//Set divisions between sections of page
-upperSplit = 19.2% //Change this to alter ratio between top & bottom sections [percent]
+// Set divisions between sections of page
+upperSplit = 19.2% // Change this to alter ratio between top & bottom sections [percent]
 lowerSplit = 100% - upperSplit
 
 mobileSplit = 16%
 mobileLower = 100% - mobileSplit
 
-leftSplit = 1/7 //Change this to alter ratio between left & right sections [fraction]
+leftSplit = 1/7 // Change this to alter ratio between left & right sections [fraction]
 rightSplit = 1 - leftSplit
 
-//Left sidebar with QR & badges
+// Left sidebar with QR & badges
 .sidebar
   span(leftSplit)
   height 100%
   level(3)
   
-  //QR canvas
+  // QR canvas
   .qr
     height upperSplit
+    background coolGrey
+  .qr.eth
+    background ethLt
+  .qr.per
     background perLt
+  .qr.nat
+    background natLt
+  .qr.fas
+    background fasLt
     
-  //Sidebar with image & badges
+  // Sidebar with image & badges
   .badges
     height lowerSplit
-    bgImage(performance)
+    background coolGrey
     // box-shadow 4px 0px 5px 0px rgba(0,0,0,0.11) //Optional drop shadow on sidebar
     level(4)
     
@@ -52,6 +60,16 @@ rightSplit = 1 - leftSplit
       margin-bottom 10%
       background-size contain
       background-repeat no-repeat
+  
+  // Badge themes
+  .badges.eth
+    bgImage(ethnography)
+  .badges.per
+    bgImage(performance)
+  .badges.nat
+    bgImage(nature)
+  .badges.fas
+    bgImage(fashion)
 
 // Badge states
 #nature
@@ -67,7 +85,7 @@ rightSplit = 1 - leftSplit
 #ethnography.active
   background-image url(badges/ethnography.png)
         
-//Right side of app, contains nav and content panes [nav is in separate nav.styl file]
+// Right side of app: contains nav and content panes [nav is in separate nav.styl file]
 .content
   span(rightSplit)
   height 100%

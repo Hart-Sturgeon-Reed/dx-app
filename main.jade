@@ -1,24 +1,26 @@
-template(name="layout")
-  head
-    title dx-app
-    
-  meta(name="viewport" content="width=device-width, initial-scale=1, user-scalable=no")
+head
+  title dx-app
+  link(rel="manifest" href="manifest.json")
   meta(name="mobile-web-app-capable" content="yes")
+  link(rel="icon" sizes="192x192" href="logo.png")
+  meta(name="viewport" content="width=device-width, initial-scale=1, user-scalable=no")
 
+template(name="layout")
   body
     +sidebar
     +main
-//Left side of app, qr scanner & badges    
+
+//Left side of app: qr scanner & badges    
 template(name="sidebar")
   .sidebar
-    .qr
+    .qr(class="#{theme}")
       +qrScanner(facing="environment")
-    .badges
+    .badges(class="#{theme}")
       .badge#nature
       .badge#performance.active
       .badge#fashion
       .badge#ethnography
-//Right side of app, navigation icons & content  
+//Right side of app: nav menu & content  
 template(name="main")
   .content
     +nav
@@ -27,18 +29,18 @@ template(name="main")
 //Animated nav menu  
 template(name="nav")
   nav
-    .line
-      .fill
+    .line(class="#{theme}")
+      .fill(class="#{theme}")
     .card#card1(num='0')
-      .icon
+      .icon(class="#{theme}")
     .card#card2(num='1')
-      .icon
+      .icon(class="#{theme}")
     .card#card3(num='2')
-      .icon
+      .icon(class="#{theme}")
     .card#card4(num='3')
-      .icon
+      .icon(class="#{theme}")
     .card#card5(num='4')
-      .icon
+      .icon(class="#{theme}")
     .card#card6(num='5')
-      .icon
+      .icon(class="#{theme}")
     .logo
