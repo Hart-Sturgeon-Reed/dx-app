@@ -38,8 +38,8 @@ if Meteor.isClient
     fashion = $('#fashion')
     ethnography = $('#ethnography')
     updateNav()
-    paneWidth = parseInt panes.width()/6 # Get the width of one pane
-    $(window).resize -> paneWidth = parseInt panes.width()/6 # Update it if the window changes size
+    paneWidth = parseInt Math.floor( panes.width()/6 ) # Get the width of one pane
+    $(window).resize -> paneWidth = parseInt Math.floor( panes.width()/6 ) # Update it if the window changes size
     body.hammer() # Begin watching touch events
     
   Template.exhibit.rendered = ->
@@ -82,7 +82,7 @@ if Meteor.isClient
       console.log event.currentTarget.id
   
   # Routes
-  Router.route '/', ->
+  Router.route '/', {
     action: ->
       this.layout 'layout'
       this.render 'exhibit1', { #Change this route to the splash page down the line
@@ -92,6 +92,7 @@ if Meteor.isClient
       }
     onAfterAction: ->
       jumpToPane(0)
+  }
     
   Router.route '/:_id', {
     action: ->
@@ -145,6 +146,7 @@ if Meteor.isClient
     if navDots?
       for navDot, index in navDots
         if index == panesViewed
+          $(navDot).removeClass 'viewed'
           $(navDot).addClass 'active'
         else if index <= panesViewed
           $(navDot).removeClass 'active'
