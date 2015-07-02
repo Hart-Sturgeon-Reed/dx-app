@@ -27,17 +27,17 @@ if Meteor.isClient
   fashion = null
   
   # On first loading the page, check to see if this user is new
-  userID = Session.get('userID')
+  userID = localStorage.getItem('userID')
   if userID?
     # If they are returning, get their user document
     console.log 'User id is: '+userID
-    user = Users.findOne(userID)
+    user = Users.findOne({_id:userID})
     console.dir user
-  if !userID? or !user? # Otherwise create an empty one
+  unless user? # Otherwise create an empty one
     console.log 'Generating new user'
     newUser = true
     # Insert it into the collection
-    id = Users.insert({
+    user = {
       name: 'none' # Track name for highscore table
       exhibits: # Track exhibit views
         one: 0
@@ -62,8 +62,9 @@ if Meteor.isClient
         forest: 0
         city: 0
         downtown: 0
-    })
-    Session.setPersistent 'userID', id # Store the userID to localstorage 
+    }
+    id = Users.insert(user)
+    localStorage.setItem('userID', id) # Store the userID to localstorage 
     console.log 'New user has id: ' + id
   
   # After rendering templates
@@ -198,10 +199,11 @@ if Meteor.isClient
           $(navDot).removeClass 'active'
   
   viewExhibit = (exNum) ->
-    ex = user.exhibits # Get the user's exhibits
-    ex[exNum] = 1 # Record that they viewed the current exhibit
-    response = Users.update { _id: userID }, { $set: {exhibits: ex }} # Update collection
-    user = Users.findOne userID # Get the updated user object
+    if user?.exhibits?
+      ex = user.exhibits # Get the user's exhibits
+      ex[exNum] = 1 # Record that they viewed the current exhibit
+      #response = Users.update { _id: userID }, { $set: {exhibits: ex }} # Update collection
+      #user = Users.findOne({_id:userID}) # Get the updated user object
           
   # QR scanner
   qrScanner.on "scan", (err, message) ->
