@@ -1,19 +1,17 @@
-if Meteor.isClient
-  window.screen?.orientation?.lock?('landscape-primary') # Lock the screen to landscape mode on tablet & mobile
-      
-  # QR scanner
-  qrScanner.on "scan", (err, message) ->
-    if message?
-      # WARNING Remove this before uploading! Just to avoid errors when testing QR codes through pagekite/localhost
-      if message is "http://dxs.bz/"
-        Router.go '/'
-      else
-        justPath = message.slice -2
-        Router.go justPath
-      # Router.go message # WARNING This is what the final function should look like
+Users = new Mongo.Collection 'users'
 
-  # Init values
-  Session.setDefault 'theme', 'eth' # This variable sets the theme for the sidebar & navbar reactively
+if Meteor.isClient
+  window.screen?.orientation?.lock?('landscape-primary') # Lock the screen to landscape mode on tablet & 
+  
+  Meteor.subscribe 'users' # Subscribe to the users collection
+
+  # Init 'global' values
+  Session.setDefault 'theme', '' # This variable sets the theme for the sidebar & navbar reactively
+  # Possible values: 'eth', 'per', 'nat', or 'fas'
+  
+  user = null
+  newUser = false
+  userID = null
   
   scroll = 0 # Amount .panes div has been scrolled
   pct = # Percent of exhibit item viewed
@@ -28,7 +26,47 @@ if Meteor.isClient
   ethnography = null
   fashion = null
   
-  # After rendering
+  # On first loading the page, check to see if this user is new
+  userID = Session.get('userID')
+  if userID?
+    # If they are returning, get their user document
+    console.log 'User id is: '+userID
+    user = Users.findOne(userID)
+    console.dir user
+  if !userID? or !user? # Otherwise create an empty one
+    console.log 'Generating new user'
+    newUser = true
+    # Insert it into the collection
+    id = Users.insert({
+      name: 'none' # Track name for highscore table
+      exhibits: # Track exhibit views
+        one: 0
+        two: 0
+        three: 0
+        four: 0
+        five: 0
+        six: 0
+        seven: 0
+        eight: 0
+        nine: 0
+        ten: 0
+        eleven: 0
+        twelve: 0
+        thirteen: 0
+        fourteen: 0
+        fifteen: 0
+        sixteen: 0
+      scores: # Track user highscores
+        total: 0
+        mountain: 0
+        forest: 0
+        city: 0
+        downtown: 0
+    })
+    Session.setPersistent 'userID', id # Store the userID to localstorage 
+    console.log 'New user has id: ' + id
+  
+  # After rendering templates
   Template.layout.rendered = ->
     panes = $('.panes')
     body = $('body')
@@ -48,7 +86,8 @@ if Meteor.isClient
     exhibit.theme = $('.exhibit').attr 'theme'
     exhibit.panes = $('.pane')
     exhibit.currentPane = exhibit.panes.get(0)
-    console.log exhibit.theme
+    #console.log exhibit.theme
+    viewExhibit exhibit.num
     Session.set('theme','')
     Session.set('theme',exhibit.theme)
   
@@ -64,25 +103,28 @@ if Meteor.isClient
   
   # Events
   Template.main.events
-    'tap .card': (event) ->
+    'tap .card': (event) -> # On pressing a segment of the nav bar
       num = event.currentTarget.attributes.num.value
       jumpToPane num
       updateExhibit()
       
-    'swipeleft': (event) ->
+    'swipeleft': (event) -> # On swiping left
       swipeLeft()
       updateExhibit()
       
-    'swiperight': (event) ->
+    'swiperight': (event) -> # On swiping right
       swipeRight()
       updateExhibit()    
       
   Template.sidebar.events
-    'tap .badge': (event) ->
+    'tap .badge': (event) -> # Tapping on a zone badge
       console.log event.currentTarget.id
+    'tap .qr': -> # Tapping the QR scanner [used for debugging functions]
+      Session.clearPersistent()
+      console.log 'Clearing localStorage'
   
   # Routes
-  Router.route '/', {
+  Router.route '/', { # Splash page
     action: ->
       this.layout 'layout'
       this.render 'exhibit1', { #Change this route to the splash page down the line
@@ -94,7 +136,7 @@ if Meteor.isClient
       jumpToPane(0)
   }
     
-  Router.route '/:_id', {
+  Router.route '/:_id', { # Exhibit pages
     action: ->
       id = this.params._id
       this.layout 'layout'
@@ -122,7 +164,7 @@ if Meteor.isClient
       playAnim()
       updateNav()
       
-  jumpToPane = (num) ->
+  jumpToPane = (num) -> # Go to a specific pane
     scroll = -paneWidth * num
     pct = num*20
     playAnim()
@@ -154,9 +196,22 @@ if Meteor.isClient
         else 
           $(navDot).removeClass 'viewed'
           $(navDot).removeClass 'active'
+  
+  viewExhibit = (exNum) ->
+    ex = user.exhibits # Get the user's exhibits
+    ex[exNum] = 1 # Record that they viewed the current exhibit
+    response = Users.update { _id: userID }, { $set: {exhibits: ex }} # Update collection
+    user = Users.findOne userID # Get the updated user object
+          
+  # QR scanner
+  qrScanner.on "scan", (err, message) ->
+    if message?
+      #console.log message + ': scanned'
+      Router.go message
     
 # Server side
 if Meteor.isServer
   Meteor.startup(->
     console.log 'server started'
+    Meteor.publish 'users', -> Users.find {}
   )
