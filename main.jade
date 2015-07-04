@@ -2,7 +2,7 @@ head
   title dx-app
   link(rel="manifest" href="manifest.json")
   meta(name="mobile-web-app-capable" content="yes")
-  link(rel="icon" sizes="192x192" href="logo.png")
+  link(rel="icon" sizes="192x192" href="logoDrop.png")
   meta(name="viewport" content="width=device-width, initial-scale=1, user-scalable=no")
 
 template(name="layout")
@@ -16,10 +16,11 @@ template(name="sidebar")
     .qr(class="#{theme}")
       +qrScanner(facing="environment")
     .badges(class="#{theme}")
+      .badge#ethnography
+      .badge#fashion
       .badge#nature
       .badge#performance
-      .badge#fashion
-      .badge#ethnography
+      
 //Right side of app: nav menu & content  
 template(name="main")
   .content

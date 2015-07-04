@@ -36,8 +36,7 @@ if Meteor.isClient
   if !userID? or !user? # Otherwise create an empty one
     console.log 'Generating new user'
     newUser = true
-    # Insert it into the collection
-    id = Users.insert({
+    user = {
       name: 'none' # Track name for highscore table
       exhibits: # Track exhibit views
         one: 0
@@ -62,7 +61,9 @@ if Meteor.isClient
         forest: 0
         city: 0
         downtown: 0
-    })
+    }
+    # Insert it into the collection
+    id = Users.insert(user)
     Session.setPersistent 'userID', id # Store the userID to localstorage 
     console.log 'New user has id: ' + id
   
@@ -197,16 +198,38 @@ if Meteor.isClient
           $(navDot).removeClass 'viewed'
           $(navDot).removeClass 'active'
   
+  # This function saves an exhibit view to the user object in the collection
   viewExhibit = (exNum) ->
-    ex = user.exhibits # Get the user's exhibits
-    ex[exNum] = 1 # Record that they viewed the current exhibit
-    response = Users.update { _id: userID }, { $set: {exhibits: ex }} # Update collection
-    user = Users.findOne userID # Get the updated user object
+    if user.exhibits?
+      ex = user.exhibits # Get the user's exhibits
+      ex[exNum] = 1 # Record that they viewed the current exhibit
+      #response = Users.update { _id: userID }, { $set: {exhibits: ex }} # Update collection
+      #user = Users.findOne userID # Get the updated user object
+      updateBadges()
+    
+  # This function updates the state of the badges to reflect user progress
+  updateBadges = ->
+    if user?.exhibits?
+      ex = user.exhibits
+      ethViews = ex.one + ex.two + ex.three + ex.four
+      fasViews = ex.five + ex.six + ex.seven + ex.eight
+      natViews = ex.nine + ex.ten + ex.eleven + ex.twelve
+      perViews = ex.thirteen + ex.fourteen + ex.fifteen + ex.sixteen
+      console.log "Badge views #{ethViews}, #{fasViews}, #{natViews}, #{perViews}"
+      if (ethViews>0)
+        ethnography?.addClass 'view'+ethViews
+      if (fasViews>0)
+        fashion?.addClass 'view'+fasViews
+      if (natViews>0)
+        nature?.addClass 'view'+natViews
+      if (perViews>0)
+        performance?.addClass 'view'+perViews
           
   # QR scanner
   qrScanner.on "scan", (err, message) ->
     if message?
       #console.log message + ': scanned'
+      #slice = message.slice -2
       Router.go message
     
 # Server side
