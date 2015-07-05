@@ -203,7 +203,7 @@ if Meteor.isClient
     if user.exhibits?
       ex = user.exhibits # Get the user's exhibits
       ex[exNum] = 1 # Record that they viewed the current exhibit
-      #response = Users.update { _id: userID }, { $set: {exhibits: ex }} # Update collection
+      response = Users.update { _id: userID }, { $set: {exhibits: ex }} # Update collection
       #user = Users.findOne userID # Get the updated user object
       updateBadges()
     
