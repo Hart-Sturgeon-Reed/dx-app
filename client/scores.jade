@@ -1,0 +1,16 @@
+template(name="scores")
+  .scoreboard
+    .headerImg
+    .scoreRow.labels
+      .rank Rank
+      .name 
+        .comfy Name
+      .score 
+        .comfy Score
+    each scores
+      .scoreRow
+        .rank #{rank}
+        .name 
+          .comfy #{name}
+        .score 
+          .comfy #{score}

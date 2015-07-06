@@ -9,17 +9,29 @@ template(name="layout")
   body
     +sidebar
     +main
+    
+template(name="splash")
+  .splash
+  
+template(name="empty")
+
+template(name="loader")
+  .loading
+    .message Loading, please wait...
+    .spinner.fa.fa-spinner.fa-pulse.fa-3x
 
 //Left side of app: qr scanner & badges    
 template(name="sidebar")
   .sidebar
+    +yield "splash"
     .qr(class="#{theme}")
       +qrScanner(facing="environment")
     .badges(class="#{theme}")
-      .badge#ethnography
-      .badge#fashion
-      .badge#nature
-      .badge#performance
+      with user
+        .badge#ethnography(class="view#{ethViews}")
+        .badge#fashion(class="view#{fasViews}")
+        .badge#nature(class="view#{natViews}")
+        .badge#performance(class="view#{perViews}")
       
 //Right side of app: nav menu & content  
 template(name="main")

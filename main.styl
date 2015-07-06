@@ -13,6 +13,16 @@ body
   width 100%
   height 100%
   margin 0
+  
+.splash
+  bgImage(splash)
+  level(5)
+  background-position center
+  position fixed
+  width 100%
+  height 100%
+  top 0px
+  left 0px
 
   
 // Set divisions between sections of page
@@ -34,7 +44,8 @@ rightSplit = 1 - leftSplit
   // QR canvas
   .qr
     height upperSplit
-    background coolGrey
+    background perLt
+    level(6)
   .qr.eth
     background ethLt
   .qr.per
@@ -72,7 +83,7 @@ rightSplit = 1 - leftSplit
     bgImage(fashion)
 
 // Badge states
-#nature
+#nature.view0
   background-image url(badges/nature_0.png)
 #nature.view1
   background-image url(badges/nature_1.png)
@@ -82,7 +93,7 @@ rightSplit = 1 - leftSplit
   background-image url(badges/nature_3.png)
 #nature.view4
   background-image url(badges/nature_4.png)
-#performance
+#performance.view0
   background-image url(badges/performance_0.png)
 #performance.view1
   background-image url(badges/performance_1.png)
@@ -92,7 +103,7 @@ rightSplit = 1 - leftSplit
   background-image url(badges/performance_3.png)
 #performance.view4
   background-image url(badges/performance_4.png)
-#fashion
+#fashion.view0
   background-image url(badges/fashion_0.png)
 #fashion.view1
   background-image url(badges/fashion_1.png)
@@ -102,7 +113,7 @@ rightSplit = 1 - leftSplit
   background-image url(badges/fashion_3.png)
 #fashion.view4
   background-image url(badges/fashion_4.png)
-#ethnography
+#ethnography.view0
   background-image url(badges/ethnography_0.png)
 #ethnography.view1
   background-image url(badges/ethnography_1.png)
@@ -127,3 +138,15 @@ rightSplit = 1 - leftSplit
 .pane
   span(1/6)
   height 100%
+  
+.loading
+  background coolGrey
+  width 100%
+  height 100%
+.message
+  font-size 1.8rem
+  padding-top 20%
+  text-align center
+.spinner
+  margin-top 5%
+  margin-left 48%
