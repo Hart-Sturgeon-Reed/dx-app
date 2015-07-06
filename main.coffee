@@ -243,10 +243,12 @@ if Meteor.isClient
           
   # QR scanner
   qrScanner.on "scan", (err, message) ->
-    if message? and message.includes 'dxs'
-      #console.log message + ': scanned'
-      #slice = message.slice -2
-      Router.go message
+    if message?
+      if message.indexOf('dxs') != -1
+        #console.log message + ': scanned'
+        Router.go message
+      else
+        console.log message + ' is not a valid path'
     
 # Server side
 if Meteor.isServer
