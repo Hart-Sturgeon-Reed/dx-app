@@ -115,7 +115,7 @@ if Meteor.isClient
       console.log event.currentTarget.id
     'tap .qr': -> # Tapping the QR scanner [used for debugging functions]
       Session.set('clr', Session.get('clr') + 1)
-      if Session.get('clr') > 6
+      if Session.get('clr') > 3
         Session.clearPersistent()
         console.log 'Clearing localStorage'
   # Routes
@@ -244,7 +244,7 @@ if Meteor.isClient
   # QR scanner
   qrScanner.on "scan", (err, message) ->
     if message?
-      if message.indexOf('dxs') != -1
+      if message.indexOf('dxs.bz/') != -1
         #console.log message + ': scanned'
         Router.go message
       else
