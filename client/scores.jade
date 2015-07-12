@@ -1,16 +1,21 @@
 template(name="scores")
   .scoreboard
     .headerImg
-    .scoreRow.labels
-      .rank Rank
-      .name 
-        .comfy Name
-      .score 
-        .comfy Score
-    each scores
-      .scoreRow
-        .rank #{rank}
-        .name 
-          .comfy #{name}
-        .score 
-          .comfy #{score}
+      img(src="assets/top10.png")
+    .lineStart
+      img(src="assets/lineOne.png")
+    .scoreContainer  
+        .scoreRow.labels
+          .rank 
+            img(src="rank.png")
+          .name 
+            img(src="name.png")
+          .score 
+            img(src="score.png")
+        each scores
+          .scoreRow
+            .rank #{rank}
+            .name #{name}
+            .score #{score}
+    .lineStart
+      img(src="assets/lineOne.png")

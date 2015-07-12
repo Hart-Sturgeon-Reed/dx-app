@@ -4,6 +4,14 @@ bgImage(image)
   background-image url(url)
   background-size cover
   background-position bottom
+// Assign a class to have a full-size background png
+
+bgPng(image)
+  url = image + '.png'
+  background-image url(url)
+  background-size cover
+  -moz-background-size cover
+  background-position bottom 
 
 // Colored line divider
 thinLine(clr)

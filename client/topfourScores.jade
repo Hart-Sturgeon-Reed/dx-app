@@ -1,0 +1,37 @@
+template(name="topFourScores")
+  .individualScoreBoard
+    .headerImg
+      img(src="assets/yourwinBanner.png")
+    .userRank
+      .rankBanner
+        img(src="assets/displayrank.png")
+      .rankDisplay 15
+    .topfourBanner
+      img(src="assets/topfourbanner.png")
+    .lineStart
+      img(src="assets/lineOne.png")  
+    .scoreContainer  
+      .scoreRow.labels
+         .rank
+           img(src="assets/rank.png")
+         .name
+           img(src="assets/name.png")
+         .score
+           img(src="assets/score.png")
+       each scores
+         .scoreRow
+           .rank #{rank}
+           .name #{name}
+           .score #{score}
+     .lineStart
+       img(src="assets/lineOne.png") 
+     
+     .btnMenuFour
+       .homeBtnFour
+         img(src="assets/homeBtn.png")
+       .restartBtnFour
+         img(src="assets/restartBtn.png")
+          
+          
+  
+      

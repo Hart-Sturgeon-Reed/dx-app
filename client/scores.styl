@@ -5,35 +5,53 @@
 @import 'client/fonts'
 
 //edit()
+   
+.headerImg > img
+  center(100%)
+  margin-top 6.15%
+  height 100%
+.lineStart > img
+  center(100%)
+  margin-top 0.5%
+
+.scoreContainer
+  center(53%)
+  height auto
+  margin-top 0.5%
 
 .scoreboard
-  center(90%)
+  center(100%)
   height 100%
-  background coolGrey
+  bgPng('assets/rankingBaseEffect')
   
 .scoreRow
   center(100%)
-  background scrLt
   
 .rank
-  span(1/10)
+  col(2/10)
   text-align center
   border-bottom 1px solid coolGrey
+.rank > img
+  center(100%)    
     
 .name
-  span(7/10)
+  col(4/10)
+  text-align center      
   border-bottom 1px solid coolGrey
+.name > img
+  center(100%)    
     
 .score
-  span(2/10)
+  col(4/10)
+  text-align center
   border-bottom 1px solid coolGrey
+.score > img
+  center(100%)    
   
 .comfy
   padding-left 1.2rem
 
-.scoreRow:nth-child(odd)
-  background scrDk
+.scoreRow:nth-child()
   
 .labels
   font-size 1.6rem
-  background ethLt

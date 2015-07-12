@@ -134,6 +134,16 @@ if Meteor.isClient
     action: ->
       this.render 'scores'
   }
+  
+  Router.route '/topFour', {
+    action: ->
+      this.render 'topFourScores'
+  }
+  
+  Router.route '/individualScores', {
+    action: ->
+      this.render 'individualScores'
+  }
     
   Router.route '/:_id', { # Exhibit pages
     loadingTemplate: 'loader'
