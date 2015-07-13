@@ -27,7 +27,7 @@ Prop = function(sprite,yPos,minOffset,layer,frequency,init,max,dim){
     this.frequency = frequency;
     this.max = max;
     this.props = [];
-    var nextOffset = (Math.random()*worldWidth);
+    var nextOffset = worldWidth*0.4;
     if(minOffset==null){minOffset = worldWidth/4}
     
     this.newProp = function(){

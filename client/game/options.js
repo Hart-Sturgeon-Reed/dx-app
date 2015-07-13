@@ -28,7 +28,6 @@
       purple: '0x6B54A2'
   };
 paused = false;
-raceStarted = false;
 gravityStrength = GRV.moon;
 
 courseLength = 40;

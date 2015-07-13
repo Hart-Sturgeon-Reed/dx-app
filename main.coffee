@@ -13,12 +13,18 @@ if Meteor.isClient
   Session.setDefault 'clr', 0 # This variable is used to reset the cache on the exhibit tablets
   # If you click on the qr scanner section 7 times, it will clear localstorage
   
-  Session.setDefault('tenth', 0);
-  Session.setDefault('sec', 0);
-  Session.setDefault('min', 0);
-  Session.setDefault('score', 0);
-  Session.setDefault('stamina', 100);
-  Session.setDefault('progress', 0);
+  Session.setDefault 'scanQR', true
+  
+  # For game:
+  Session.setDefault 'tenth', 0
+  Session.setDefault 'sec', 0
+  Session.setDefault 'min', 0
+  Session.setDefault 'score', 0
+  Session.setDefault 'stamina', 100
+  Session.setDefault 'progress', 0
+  Session.setDefault 'raceStarted', false
+  Session.setDefault 'raceStarting', false
+  Session.setDefault 'cd', 3
   
   scroll = 0 # Amount .panes div has been scrolled
   pct = # Percent of exhibit item viewed
@@ -73,6 +79,7 @@ if Meteor.isClient
   
   Template.sidebar.helpers
     theme: -> Session.get('theme')
+    scanQR: -> Session.get('scanQR')
     user: ->
       id = Session.get('userID')
       console.log id
@@ -119,8 +126,11 @@ if Meteor.isClient
       
   Template.sidebar.events
     'tap .badge': (event) -> # Tapping on a zone badge
-      console.log 'starting game'
-      Router.go('/game');
+      if $(event.target).hasClass 'view4'
+        console.log 'starting game'
+        Session.set 'scanQR', false
+        Router.go('/game')
+      else console.dir event.target
 #      unless gameActive
 #        console.log('showing game')
 #        $('#game-canvas').addClass('active')
@@ -131,6 +141,12 @@ if Meteor.isClient
       if Session.get('clr') > 3
         Session.clearPersistent()
         console.log 'Clearing localStorage'
+        
+  Template.scores.events
+    'touchstart .scoreboard': ->
+      console.log 'going back to app'
+      Router.go('/')
+        
   # Routes
   Router.route '/', { # Splash page
     loadingTemplate: 'loader'
@@ -144,6 +160,7 @@ if Meteor.isClient
       }
     onAfterAction: ->
       jumpToPane(0)
+      Session.set 'scanQR', true
   }
   
   Router.route '/scores', {
@@ -279,7 +296,7 @@ if Meteor.isClient
   qrScanner.on "scan", (err, message) ->
     if message?
       if message.indexOf('dxs.bz/') != -1
-        #console.log message + ': scanned'
+        console.log message + ': scanned'
         Router.go message
       else
         console.log message + ' is not a valid path'

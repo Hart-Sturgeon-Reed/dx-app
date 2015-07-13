@@ -82,6 +82,8 @@ setPhysics = function(){
 }
 
 startGame = function(){
+  console.log('race started!');
+  Session.set('raceStarting', false);
   player.startRacing();
   timer = Meteor.setInterval(updateTime, 1000);
   world.wakeUpAll();
@@ -89,6 +91,8 @@ startGame = function(){
 
 endGame = function(){
   //calculate player score and show scores page
+  clearInterval(timer);
+  $('.scoreboard').addClass('active');
 }
 
 resetGame = function(){

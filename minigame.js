@@ -14,6 +14,38 @@ if (Meteor.isClient) {
     dev = 'large';
   }
   
+  countdown = function(){
+    var cd = Session.get('cd');
+    console.log(cd + ' seconds to go');
+    cd--;
+    if(cd>0){
+      Session.set('cd',cd);
+      Meteor.setTimeout(countdown, 1000);
+    }else{
+      Session.set('cd','Go!');
+      Meteor.setTimeout(startGame, 1000);
+    }
+  }
+  
+  beginRace = function(){
+    console.log('starting the game in 3 seconds');
+    Session.set('raceStarted', true);
+    Session.set('raceStarting', true);
+    Session.set('raceEnded', false);
+    Session.set('cd', 3);
+    Meteor.setTimeout(countdown, 1000);
+  }
+  
+  initGame = function(){
+    Session.set('tenth', 0);
+    Session.set('sec', 0);
+    Session.set('min', 0);
+    Session.set('score', 0);
+    Session.set('stamina', 100);
+    Session.set('progress', 0);
+    Session.set('raceStarted',false);
+  }
+  
   updateTime = function(){
     //console.log('updating time');
     if(paused){return;}
@@ -23,7 +55,7 @@ if (Meteor.isClient) {
     sec++; //should be tenth++ if clock were running at correct speed
     if(tenth>9){
       tenth = 0;
-      sec++;
+      tenth++;
     }
     if(sec>59){
       sec = 0;
@@ -71,6 +103,15 @@ if (Meteor.isClient) {
     },
     progress: function(){
       return Session.get('progress');
+    },
+    notStarted: function(){
+      return !Session.get('raceStarted'); 
+    },
+    raceStarting: function(){
+      return Session.get('raceStarting');
+    },
+    cd: function(){
+      return Session.get('cd');
     }
   });
 
@@ -78,15 +119,11 @@ if (Meteor.isClient) {
     if(!gameActive){
       gameActive = true;
       startLoading();
+    }else{
+      startBuilding();
     }
     $('#overlay').hammer();
-    Session.set('tenth', 0);
-    Session.set('sec', 0);
-    Session.set('min', 0);
-    Session.set('score', 0);
-    Session.set('stamina', 100);
-    Session.set('progress', 0);
-    raceStarted = false;
+    initGame();
   });
 }
 
@@ -104,10 +141,14 @@ createRenderer = function(){
       meta: false // Turns debug info on/off
   });
   
-  stageWidth = window.innerWidth;
-  stageHeight = window.innerHeight;
+  var resize = function(){
+    stageWidth = window.innerWidth;
+    stageHeight = window.innerHeight;
+
+    renderer.resize(stageWidth,stageHeight);
+  }();
   
-  renderer.resize(stageWidth,stageHeight);
+  window.onresize = resize;
 
   console.log('added renderer: '+stageWidth+', '+stageHeight);
 }

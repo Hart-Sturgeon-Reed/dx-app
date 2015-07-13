@@ -84,9 +84,9 @@ processCollisions = function(data,e) {
   found = Physics.util.find (data.collisions, defeatCheck);
   if (found){
     if(found.bodyA.label=='ball'){
-      //defeatAnimal(found.bodyA,found.bodyB);
+      defeatAnimal(found.bodyA,found.bodyB);
     }else{
-      //defeatAnimal(found.bodyB,found.bodyA);
+      defeatAnimal(found.bodyB,found.bodyA);
     }
   }
 }
@@ -107,14 +107,19 @@ hitAnimal = function(player,animal){
     player.self.hit(player.self.animalCollision);
   }
   player.applyForce({x:0,y:player.self.animalLift});
+  flingAnimal(animal);
 }
 
 defeatAnimal = function(ball,animal){
+  flingAnimal(animal);
+}
+
+flingAnimal = function(animal){
   animals.splice(animals.indexOf(animal),1);
   setPhysics();
   animal.treatment = 'dynamic';
-  animal.state.angular.vel = rnd()+ 0.005;
-  animal.applyForce({x:0.04,y:-0.012});
+  animal.state.angular.vel = rnd(0.0004);
+  animal.applyForce({x:0.08,y:-0.012});
 }
 
 collectMedal = function(player,medal){

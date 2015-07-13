@@ -10,6 +10,7 @@
   center(100%)
   margin-top 6.15%
   height 100%
+  margin-bottom 0.9em
 .lineStart > img
   center(100%)
   margin-top 0.5%
@@ -21,11 +22,28 @@
 
 .scoreboard
   center(100%)
+  position fixed
+  color white
+  font-family 'Unica'
+  font-size 1.8em
+  textShadow()
+  top 0
+  left 0
+  z-index 15
   height 100%
+  width 100%
+  opacity 0
+  transition opacity 0.4s
+  pointer-events none
   bgPng('assets/rankingBaseEffect')
+  
+.scoreboard.active
+  opacity 1
+  pointer-events auto
   
 .scoreRow
   center(100%)
+  padding-bottom 0.2em
   
 .rank
   col(2/10)

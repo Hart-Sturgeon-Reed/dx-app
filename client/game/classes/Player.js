@@ -53,11 +53,11 @@ Player = function(xpos,ypos){
   this.regen = 0.07; //amount of energy regained;
   this.bushCollision = 0.3; //decel on collision
   this.bushLift = -0.012; //lift on collision
-  this.animalCollision = 0.5;
+  this.animalCollision = 1.2;
   this.animalLift = -0.012;
   this.recover = this.accel * 4; //increased accel when vel is negative
-  this.kickX = 0.0025;
-  this.kickY = -0.004;
+  this.kickX = 0.0012;
+  this.kickY = -0.003;
   
   if(dev=='mobile'){
     this.jumpHeight *= mobileMod;
@@ -144,7 +144,7 @@ Player = function(xpos,ypos){
     
     if(this.body.state.pos.x > worldWidth*(courseLength) && this.is.racing){
       this.is.racing = false;
-      clearInterval(timer);
+      endGame();
     }
     
     if(!this.is.racing){

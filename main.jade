@@ -26,7 +26,8 @@ template(name="sidebar")
   .sidebar
     +yield "splash"
     .qr(class="#{theme}")
-      +qrScanner(facing="environment")
+      if scanQR
+        +qrScanner(facing="environment")
     .badges(class="#{theme}")
       with user
         .badge#performance(class="view#{perViews}")

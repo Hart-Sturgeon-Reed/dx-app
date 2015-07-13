@@ -8,7 +8,7 @@ setupStage = function(renderer){
   
   //Game layers
   addLayer('background');
-  addParallaxLayer('landmarks', 0.01);
+  addParallaxLayer('landmarks', 0.017);
   addParallaxLayer('parallax', 0.12);
   addParallaxLayer('clouds', 0.16);
   addLayer('ground');

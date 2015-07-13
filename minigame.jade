@@ -14,9 +14,18 @@ template(name="game")
         .ui.gray.progress.tiny(data-percent="#{progress}")
           .bar(style="width: #{progress}%;")
           //.label progress
+    
+    .notifications
+      if raceStarting
+        .text Race starting in:
+        .countdown #{cd}
+      else if notStarted
+        .text Tap to start the race!
           
     .controls
       .sprint.button Sprint
       .spacer
       .jump.button Jump
+  
+  +scores
       

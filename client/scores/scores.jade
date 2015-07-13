@@ -1,17 +1,17 @@
 template(name="scores")
   .scoreboard
     .headerImg
-      img(src="assets/top10.png")
+      img(src="assets/topScores.png")
     .lineStart
       img(src="assets/lineOne.png")
     .scoreContainer  
         .scoreRow.labels
           .rank 
-            img(src="rank.png")
+            img(src="assets/rank.png")
           .name 
-            img(src="name.png")
+            img(src="assets/name.png")
           .score 
-            img(src="score.png")
+            img(src="assets/score.png")
         each scores
           .scoreRow
             .rank #{rank}
