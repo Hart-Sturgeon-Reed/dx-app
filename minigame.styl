@@ -1,0 +1,110 @@
+@import 'jeet'
+@import 'rupture'
+@import 'client/util'
+
+//edit()
+
+#game-canvas
+  level(9)
+  width 100%
+  height 100%
+  overflow hidden
+  position fixed
+  top 0
+  left 0
+  //opacity 0
+  //pointer-events none
+  
+#game-canvas.active
+  opacity 1
+  
+#overlay
+  level(10)
+  width 100%
+  height 100%
+  overflow hidden
+  position fixed
+  top 0
+  left 0
+  //opacity 0
+  color white
+  font-family 'Unica'
+  font-size 1.8em
+  text-shadow 2px 2px 6px rgba(0.2,0.2,0.2,0.4)
+  //pointer-events none
+  
+  .map
+    margin-left 2.5%
+    width 25%
+    position absolute
+    top 92%
+    .bar
+      transition-duration 300ms
+      
+  .controls
+    font-size 2.2rem
+    text-align center
+    +below(800px)
+      font-size 1.8rem
+    .button
+      width 8rem
+      height 6rem
+      border-radius 50%
+      background rgba(0.5,0.5,0.5,0.05)
+      top 70%
+      padding-top 2rem
+      +below(800px)
+        padding-top 1.4rem
+        width 6rem
+        height 4.6rem
+        top 68%
+    .button.pressed
+      background rgba(0.2,0.2,0.2,0.25)
+    .sprint
+      position absolute
+      left 8%
+      +below(800px)
+        left 4%
+    .jump
+      position absolute
+      left 80%
+      
+
+  .display
+    center(90%)
+    font-family 'Digits'
+    font-size 4.5rem
+    text-align center
+    +below(800px)
+      font-size 3.6rem
+  
+    .scoreCounter
+      col(1/3)
+      +below(800px)
+        margin-top 0.6rem
+
+    .stamina
+      col(1/3)
+        
+      .label
+        font-family 'Unica'
+        font-size 1.2rem
+        position relative
+        top -4.4rem
+      
+    .ui.progress
+      margin-top 1rem
+      font-family 'Unica'
+      .bar
+        transition-duration 300ms
+
+    .time
+      col(1/3) 
+      +below(800px)
+        margin-top 0.6rem
+      .nums
+        margin-left 5%
+        
+#overlay.active
+  pointer-events auto
+  opacity 1

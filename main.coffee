@@ -13,6 +13,13 @@ if Meteor.isClient
   Session.setDefault 'clr', 0 # This variable is used to reset the cache on the exhibit tablets
   # If you click on the qr scanner section 7 times, it will clear localstorage
   
+  Session.setDefault('tenth', 0);
+  Session.setDefault('sec', 0);
+  Session.setDefault('min', 0);
+  Session.setDefault('score', 0);
+  Session.setDefault('stamina', 100);
+  Session.setDefault('progress', 0);
+  
   scroll = 0 # Amount .panes div has been scrolled
   pct = # Percent of exhibit item viewed
   paneWidth = 0 # Size of each pane
@@ -112,7 +119,13 @@ if Meteor.isClient
       
   Template.sidebar.events
     'tap .badge': (event) -> # Tapping on a zone badge
-      console.log event.currentTarget.id
+      console.log 'starting game'
+      Router.go('/game');
+#      unless gameActive
+#        console.log('showing game')
+#        $('#game-canvas').addClass('active')
+#        $('#overlay').addClass('active')
+#        gameActive = true
     'tap .qr': -> # Tapping the QR scanner [used for debugging functions]
       Session.set('clr', Session.get('clr') + 1)
       if Session.get('clr') > 3
@@ -126,6 +139,9 @@ if Meteor.isClient
       this.render 'splash', {
         to: 'splash'
       }
+      this.render 'empty', {
+        to: 'game'
+      }
     onAfterAction: ->
       jumpToPane(0)
   }
@@ -133,6 +149,11 @@ if Meteor.isClient
   Router.route '/scores', {
     action: ->
       this.render 'scores'
+  }
+  
+  Router.route '/game', {
+    action: ->
+      this.render 'game'
   }
   
   Router.route '/topFour', {
@@ -155,6 +176,9 @@ if Meteor.isClient
       }
       this.render 'empty', {
         to: 'splash'
+      }
+      this.render 'empty', {
+        to: 'game'
       }
     onAfterAction: ->
       jumpToPane(0)
@@ -259,11 +283,3 @@ if Meteor.isClient
         Router.go message
       else
         console.log message + ' is not a valid path'
-    
-# Server side
-if Meteor.isServer
-  Meteor.startup(->
-    console.log 'server started'
-    Meteor.publish 'users', -> Users.find {}
-    Meteor.publish 'scores', -> Scores.find {}
-  )

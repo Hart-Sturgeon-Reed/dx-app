@@ -1,0 +1,22 @@
+template(name="game")
+  div#game-canvas
+  div#overlay
+    .display
+      .scoreCounter #{score}
+      .stamina
+        .ui.indicating.progress.active(data-percent="#{staminaPercent}")
+          .bar(style="width: #{staminaPercent}%;")
+            //.progress #{staminaPercent}%
+        .label Stamina
+          
+      .time
+        span.nums #{min}:#{sec}:#{tenth}
+        .ui.gray.progress.tiny(data-percent="#{progress}")
+          .bar(style="width: #{progress}%;")
+          //.label progress
+          
+    .controls
+      .sprint.button Sprint
+      .spacer
+      .jump.button Jump
+      
