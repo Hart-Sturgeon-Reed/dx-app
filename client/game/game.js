@@ -8,9 +8,9 @@ setupGame = function(){
   
   collidable = [];
   
-  for (var i=0;i<1;i++){
-    new Ball(worldWidth + rnd(worldWidth/2),worldHeight/2);
-  }
+  new Ball(worldWidth + rnd(worldWidth/2),worldHeight/2);
+  new Ball(worldWidth*(courseLength*(1/3)),worldHeight/2,sprites.soccerRed);
+  new Ball(worldWidth*(courseLength*(2/3)),worldHeight/2,sprites.soccerBlue);
   
   //For obstacles
   var offset = worldWidth * 1.7;
@@ -33,7 +33,7 @@ setupGame = function(){
   console.log('done building obstacles');
   
   //For medals
-  offset = worldWidth;
+  offset = worldWidth*1.5;
   minOffset = worldWidth/10;
   variance = worldWidth*1.5;
   var height = worldHeight/2;
@@ -84,15 +84,50 @@ setPhysics = function(){
 startGame = function(){
   console.log('race started!');
   Session.set('raceStarting', false);
+  ballsScored = 0;
   player.startRacing();
-  timer = Meteor.setInterval(updateTime, 1000);
+  startTime = Date.now();
+  timer = Meteor.setInterval(updateTime,1000);
+  //timer = new ReactiveTimer();
+  //timer.start(1);
   world.wakeUpAll();
 }
 
 endGame = function(){
   //calculate player score and show scores page
+  console.log('race ended');
+  //timer.stop();
   clearInterval(timer);
-  $('.scoreboard').addClass('active');
+  balls.forEach(function(ball){
+    if(ball.state.pos.x>worldWidth*courseLength){ballsScored++;}
+  });
+  console.log(ballsScored + ' balls scored');
+  var score = Session.get('score');
+  var min = 0;
+  var sec = 0;
+  var tenth = Math.floor((Date.now() - startTime)/100);
+  var bonus = 900 - tenth;
+  if(bonus > 0){
+    score += 1*bonus;
+  }
+  while(tenth>600){
+    tenth-=600;
+    min ++;
+  }
+  while(tenth>10){
+    tenth-=10;
+    sec ++;
+  }
+  Session.set('min', min);
+  Session.set('sec', sec);
+  Session.set('tenth', tenth);
+  
+  if(ballsScored>0){
+    score += 125*ballsScored;
+  }
+  console.log('final score is: '+score);
+  Session.set('finalScore', score);
+  Session.set('raceEnded', true);
 }
 
 resetGame = function(){

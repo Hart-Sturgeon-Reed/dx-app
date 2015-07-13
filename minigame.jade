@@ -1,19 +1,22 @@
 template(name="game")
   div#game-canvas
   div#overlay
-    .display
-      .scoreCounter #{score}
-      .stamina
-        .ui.indicating.progress.active(data-percent="#{staminaPercent}")
-          .bar(style="width: #{staminaPercent}%;")
-            //.progress #{staminaPercent}%
-        .label Stamina
-          
-      .time
-        span.nums #{min}:#{sec}:#{tenth}
-        .ui.gray.progress.tiny(data-percent="#{progress}")
-          .bar(style="width: #{progress}%;")
-          //.label progress
+    if submitScore
+        .scoreBack
+    unless raceEnded
+      .display
+        .scoreCounter #{score}
+        .stamina
+          .ui.indicating.progress.active(data-percent="#{staminaPercent}")
+            .bar(style="width: #{staminaPercent}%;")
+              //.progress #{staminaPercent}%
+          .label Stamina
+
+        .time
+          span.nums #{min}:#{sec}:#{tenth}
+          .ui.gray.progress.tiny(data-percent="#{progress}")
+            .bar(style="width: #{progress}%;")
+            //.label progress
     
     .notifications
       if raceStarting
@@ -21,11 +24,22 @@ template(name="game")
         .countdown #{cd}
       else if notStarted
         .text Tap to start the race!
+      if raceEnded
+        .text Good job! Your final score is
+        .countdown #{finalScore}
+        .text Tap to continue
+      if submitScore
+        .text Submit your score!
+        .finalScore
+          input.name.darkBox(type='text' value='Your Name')
+          .countdown.darkBox #{finalScore}
+        .button.submit.darkBox Submit!
           
-    .controls
-      .sprint.button Sprint
-      .spacer
-      .jump.button Jump
+    unless raceEnded
+      .controls
+        .sprint.button Sprint
+        .spacer
+        .jump.button Jump
   
   +scores
       

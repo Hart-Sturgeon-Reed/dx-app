@@ -4,11 +4,20 @@ if(Meteor.isClient){
     'tap #overlay': function(event) {
       if(!Session.get('raceStarted')){
         beginRace();
+      }else if (Session.get('raceEnded')){
+        Session.set('raceEnded',false);
+        Session.set('submitScore',true);
       }
     },
 
-    'doubletap #overlay': function(event) {
-      //paused = !paused;
+    'tap .submit': function(event) {
+      Session.set('submitScore',false);
+      submitScore();
+      $('.scoreboard').addClass('active');
+    },
+    
+    'tap input.name': function(event) {
+      $('input.name').val('');
     },
 
     'touchstart #overlay': function(event){

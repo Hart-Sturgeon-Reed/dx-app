@@ -19,3 +19,26 @@ template(name="scores")
             .score #{score}
     .lineStart
       img(src="assets/lineOne.png")
+      
+      
+template(name="scoreDisplay")
+  .scoreboard.active
+    .headerImg
+      img(src="assets/topScores.png")
+    .lineStart
+      img(src="assets/lineOne.png")
+    .scoreContainer  
+        .scoreRow.labels
+          .rank 
+            img(src="assets/rank.png")
+          .name 
+            img(src="assets/name.png")
+          .score 
+            img(src="assets/score.png")
+        each scores
+          .scoreRow
+            .rank #{rank}
+            .name #{name}
+            .score #{score}
+    .lineStart
+      img(src="assets/lineOne.png")

@@ -41,7 +41,6 @@ numGold = 6;
 scaleFactor = 0.3;
 mobileMod = 0.5;
 
-var currentScene;
+ballsScored = 0;
 
-var dev;
-var timer;
+var currentScene, dev, timer, startTime;

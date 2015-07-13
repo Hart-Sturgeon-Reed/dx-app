@@ -15,6 +15,7 @@ ejson@1.0.6
 fastclick@1.0.3
 fds:pixijs@3.0.6_1
 fortawesome:fontawesome@4.3.0
+frozeman:reactive-timer@0.1.7
 geojson-utils@1.0.3
 hipstersmoothie:scrollmagic@0.0.9
 html-tools@1.0.4

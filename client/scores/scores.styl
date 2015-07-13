@@ -11,6 +11,10 @@
   margin-top 6.15%
   height 100%
   margin-bottom 0.9em
+  +below(800px)
+    height 1.2em
+    margin-top 2%
+    margin-bottom 0.4em
 .lineStart > img
   center(100%)
   margin-top 0.5%
@@ -19,6 +23,8 @@
   center(53%)
   height auto
   margin-top 0.5%
+  +below(800px)
+    center(90%)
 
 .scoreboard
   center(100%)
@@ -26,6 +32,8 @@
   color white
   font-family 'Unica'
   font-size 1.8em
+  +below(800px)
+    font-size 1.2rem
   textShadow()
   top 0
   left 0
@@ -50,21 +58,24 @@
   text-align center
   border-bottom 1px solid coolGrey
 .rank > img
-  center(100%)    
+  center(70%)   
+  border-bottom none
     
 .name
   col(4/10)
   text-align center      
   border-bottom 1px solid coolGrey
 .name > img
-  center(100%)    
+  center(37%)   
+  border-bottom none
     
 .score
   col(4/10)
   text-align center
   border-bottom 1px solid coolGrey
 .score > img
-  center(100%)    
+  center(37%) 
+  border-bottom none
   
 .comfy
   padding-left 1.2rem

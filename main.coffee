@@ -1,6 +1,3 @@
-Users = new Mongo.Collection 'users'
-Scores = new Mongo.Collection 'scores'
-
 if Meteor.isClient
   window.screen?.orientation?.lock?('landscape-primary') # Lock the screen to landscape mode on tablet & 
   
@@ -63,6 +60,9 @@ if Meteor.isClient
     #viewExhibit exhibit.num
     Session.set('theme','')
     Session.set('theme',exhibit.theme)
+    
+  Template.scoreDisplay.rendered = ->
+    $('.scoreboard').addClass 'active'
   
   # Helpers
   Template.layout.helpers
@@ -72,6 +72,11 @@ if Meteor.isClient
     theme: -> Session.get('theme')  
     
   Template.scores.helpers
+    scores: -> Scores.find({}, {sort: {score: -1}}).map((score, index)->
+      score.rank = index + 1
+      return score
+    )
+  Template.scoreDisplay.helpers
     scores: -> Scores.find({}, {sort: {score: -1}}).map((score, index)->
       score.rank = index + 1
       return score
@@ -131,11 +136,6 @@ if Meteor.isClient
         Session.set 'scanQR', false
         Router.go('/game')
       else console.dir event.target
-#      unless gameActive
-#        console.log('showing game')
-#        $('#game-canvas').addClass('active')
-#        $('#overlay').addClass('active')
-#        gameActive = true
     'tap .qr': -> # Tapping the QR scanner [used for debugging functions]
       Session.set('clr', Session.get('clr') + 1)
       if Session.get('clr') > 3
@@ -145,7 +145,7 @@ if Meteor.isClient
   Template.scores.events
     'touchstart .scoreboard': ->
       console.log 'going back to app'
-      Router.go('/')
+      Router.go('/1')
         
   # Routes
   Router.route '/', { # Splash page
@@ -165,7 +165,7 @@ if Meteor.isClient
   
   Router.route '/scores', {
     action: ->
-      this.render 'scores'
+      this.render 'scoreDisplay'
   }
   
   Router.route '/game', {
@@ -199,6 +199,7 @@ if Meteor.isClient
       }
     onAfterAction: ->
       jumpToPane(0)
+      Session.set('scanQR', true)
   }
   
   # Animation functions
@@ -266,7 +267,7 @@ if Meteor.isClient
         
   newUser = -> # This function adds a new user
     user = {
-      name: 'none' # Track name for highscore table
+      name: 'Anon' # Track name for highscore table
       exhibits: # Track exhibit views
         one: 0
         two: 0
@@ -284,6 +285,11 @@ if Meteor.isClient
         fourteen: 0
         fifteen: 0
         sixteen: 0
+      badges:
+        per: false
+        fas: false
+        nat: false
+        eth: false
     }
     if exhibit?.num?
       user.exhibits[exhibit.num] = 1

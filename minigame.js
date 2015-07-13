@@ -1,3 +1,6 @@
+Users = new Mongo.Collection('users');
+Scores = new Mongo.Collection('scores');
+
 if (Meteor.isClient) {
   gameActive = false;
   $(window).on('keyup', function(event){
@@ -32,6 +35,7 @@ if (Meteor.isClient) {
     Session.set('raceStarted', true);
     Session.set('raceStarting', true);
     Session.set('raceEnded', false);
+    Session.set('finalScore', 0);
     Session.set('cd', 3);
     Meteor.setTimeout(countdown, 1000);
   }
@@ -44,26 +48,35 @@ if (Meteor.isClient) {
     Session.set('stamina', 100);
     Session.set('progress', 0);
     Session.set('raceStarted',false);
+    Session.set('raceEnded', false);
+    Session.set('submitScore', false);
+  }
+  
+  submitScore = function(){
+    var name = $('input.name').val();
+    var score = Session.get('finalScore');
+    console.log('submitting a score: ');
+    console.log(name+': '+score);
+    Scores.insert({user:Session.get('userID'),name:name,score:score});
   }
   
   updateTime = function(){
     //console.log('updating time');
+    //timer.tick();
     if(paused){return;}
-    min = Session.get('min');
-    sec = Session.get('sec');
-    tenth = Session.get('tenth');
-    sec++; //should be tenth++ if clock were running at correct speed
-    if(tenth>9){
-      tenth = 0;
-      tenth++;
+    var min = 0;var sec = 0;
+    var tenth = Math.floor((Date.now()-startTime)/100);
+    while(tenth>600){
+      tenth-=600;
+      min ++;
     }
-    if(sec>59){
-      sec = 0;
-      min++;
+    while(tenth>10){
+      tenth-=10;
+      sec ++;
     }
-    Session.set('tenth',tenth);
-    Session.set('sec',sec);
-    Session.set('min',min);
+    Session.set('min', min);
+    Session.set('sec', sec);
+    Session.set('tenth', tenth);
   }
   
   updateProgress = function(){
@@ -110,8 +123,20 @@ if (Meteor.isClient) {
     raceStarting: function(){
       return Session.get('raceStarting');
     },
+    raceEnded: function(){
+      return Session.get('raceEnded');
+    },
     cd: function(){
       return Session.get('cd');
+    },
+    finalScore: function(){
+      return Session.get('finalScore');
+    },
+    user: function(){
+      return Users.findOne(Session.get('userID'));
+    },
+    submitScore: function(){
+      return Session.get('submitScore');
     }
   });
 

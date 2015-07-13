@@ -10,7 +10,7 @@ Ball = function(xpos,ypos,sprite){
       hitBox: {radius:0.6},
       angle: 0,
       friction: 0.1,
-      restitution: 0.5,
+      restitution: 0.9,
       pos: {x:xpos,y:ypos},
       label: 'ball'
   };
