@@ -1,4 +1,5 @@
 if Meteor.isClient
+
   window.screen?.orientation?.lock?('landscape-primary') # Lock the screen to landscape mode on tablet & 
   
   Meteor.subscribe 'users' # Subscribe to the users collection
@@ -36,6 +37,9 @@ if Meteor.isClient
   ethnography = null
   fashion = null
   
+  # Debug logs
+  debug = no
+  
   # After rendering templates
   Template.layout.rendered = ->
     panes = $('.panes')
@@ -72,12 +76,12 @@ if Meteor.isClient
     theme: -> Session.get('theme')  
     
   Template.scores.helpers
-    scores: -> Scores.find({}, {sort: {score: -1}}).map((score, index)->
+    scores: -> Scores.find({}, {sort: {score: -1}, limit: 5}).map((score, index)->
       score.rank = index + 1
       return score
     )
   Template.scoreDisplay.helpers
-    scores: -> Scores.find({}, {sort: {score: -1}}).map((score, index)->
+    scores: -> Scores.find({}, {sort: {score: -1}, limit: 5}).map((score, index)->
       score.rank = index + 1
       return score
     )
@@ -87,11 +91,11 @@ if Meteor.isClient
     scanQR: -> Session.get('scanQR')
     user: ->
       id = Session.get('userID')
-      console.log id
+      console.log id if debug
       if id?
         return Users.findOne(Session.get('userID'))
       else
-        console.log 'No id found, creating a new user'
+        console.log 'No id found, creating a new user' if debug
         newUser();
     ethViews: ->
       if this.exhibits?
@@ -132,7 +136,7 @@ if Meteor.isClient
   Template.sidebar.events
     'tap .badge': (event) -> # Tapping on a zone badge
       if $(event.target).hasClass 'view4'
-        console.log 'starting game'
+        console.log 'starting game' if debug
         Session.set 'scanQR', false
         Router.go('/game')
       else console.dir event.target
@@ -140,11 +144,11 @@ if Meteor.isClient
       Session.set('clr', Session.get('clr') + 1)
       if Session.get('clr') > 3
         Session.clearPersistent()
-        console.log 'Clearing localStorage'
+        console.log 'Clearing localStorage' if debug
         
   Template.scores.events
     'touchstart .scoreboard': ->
-      console.log 'going back to app'
+      console.log 'going back to app' if debug
       Router.go('/1')
         
   # Routes
@@ -260,10 +264,10 @@ if Meteor.isClient
       ex = user.exhibits # Get the user's exhibits
       ex[exNum] = 1 # Record that they viewed the current exhibit
       response = Users.update Session.get('userID'), { $set: {exhibits: ex }} # Update collection
-      console.log "Updated exhibit views on exhibit #{exNum} for user #{id}"
-      console.log "Response: #{response}"
+      console.log "Updated exhibit views on exhibit #{exNum} for user #{id}" if debug
+      console.log "Response: #{response}" if debug
       #updateBadges()
-    else console.log 'Error updating exhibits, no valid user found for id: '+id
+    else console.log 'Error updating exhibits, no valid user found for id: '+id if debug
         
   newUser = -> # This function adds a new user
     user = {
@@ -296,13 +300,13 @@ if Meteor.isClient
     # Insert it into the collection
     id = Users.insert(user)
     Session.setPersistent 'userID', id # Store the userID to localstorage 
-    console.log 'New user has id: ' + id
+    console.log 'New user has id: ' + id if debug
           
   # QR scanner
   qrScanner.on "scan", (err, message) ->
     if message?
       if message.indexOf('dxs.bz/') != -1
-        console.log message + ': scanned'
+        console.log message + ': scanned' if debug
         Router.go message
       else
         console.log message + ' is not a valid path'

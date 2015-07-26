@@ -7,7 +7,7 @@ setupWorld = function(renderer){
     // add the renderer
     world.add( renderer );
     
-    console.log('Device is: '+dev);
+    if(debug){console.log('Device is: '+dev);}
   
     if (dev=='tablet'){
       worldWidth = stageWidth/2;

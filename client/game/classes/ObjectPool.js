@@ -1,5 +1,5 @@
 ObjectPool = function(startingSize, batchSize){
-    console.log("creating new object pool with "+startingSize+" objects");
+    if(debug){console.log("creating new object pool with "+startingSize+" objects");}
     this.pool = [];
     this.batch = batchSize;
     this.startingSize = startingSize;

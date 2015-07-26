@@ -75,7 +75,7 @@ PIXI.loader
 
 assetsLoaded = function(loader,resources){
 
-  console.log('assets loaded');
+  if(debug){console.log('assets loaded');}
   
 sprites = {
   tint: resources.tint.texture,
@@ -157,7 +157,7 @@ playerTex = {
     'scene4': scene4
   }
   
-  console.log('all assets processed');
+  if(debug){console.log('all assets processed');}
   startBuilding();
   
 }

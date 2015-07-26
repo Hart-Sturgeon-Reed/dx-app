@@ -57,7 +57,7 @@ Player = function(xpos,ypos){
   this.animalLift = -0.012;
   this.recover = this.accel * 4; //increased accel when vel is negative
   this.kickX = 0.0012;
-  this.kickY = -0.003;
+  this.kickY = -0.0036;
   
   if(dev=='mobile'){
     this.jumpHeight *= mobileMod;

@@ -30,7 +30,7 @@ setupGame = function(){
       offset += minOffset + rnd(variance);
     }
   }
-  console.log('done building obstacles');
+  if(debug){console.log('done building obstacles');}
   
   //For medals
   offset = worldWidth*1.5;
@@ -56,7 +56,7 @@ setupGame = function(){
       break
     }
   }
-  console.log('done placing medals');
+  if(debug){console.log('done placing medals');}
   
   props = new PropManager();
   
@@ -82,7 +82,7 @@ setPhysics = function(){
 }
 
 startGame = function(){
-  console.log('race started!');
+  if(debug){console.log('race started!');}
   Session.set('raceStarting', false);
   ballsScored = 0;
   player.startRacing();
@@ -95,13 +95,13 @@ startGame = function(){
 
 endGame = function(){
   //calculate player score and show scores page
-  console.log('race ended');
+  if(debug){console.log('race ended');}
   //timer.stop();
   clearInterval(timer);
   balls.forEach(function(ball){
     if(ball.state.pos.x>worldWidth*courseLength){ballsScored++;}
   });
-  console.log(ballsScored + ' balls scored');
+  if(debug){console.log(ballsScored + ' balls scored');}
   var score = Session.get('score');
   var min = 0;
   var sec = 0;

@@ -5,7 +5,7 @@ if(Meteor.isClient){
       if(!Session.get('raceStarted')){
         beginRace();
       }else if (Session.get('raceEnded')){
-        Session.set('raceEnded',false);
+        Session.set('raceEnded', false);
         Session.set('submitScore',true);
       }
     },

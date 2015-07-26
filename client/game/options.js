@@ -43,4 +43,6 @@ mobileMod = 0.5;
 
 ballsScored = 0;
 
+debug = false;
+
 var currentScene, dev, timer, startTime;

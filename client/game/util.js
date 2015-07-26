@@ -54,8 +54,8 @@ rnd = function(opt){
       //console.log('RND min/max');
       return opt.min + Math.random()*(opt.max-opt.min);
     }else{
-      console.log('Error, incorrect arguments to rnd:');
-      console.dir(opt);
+      if(debug){console.log('Error, incorrect arguments to rnd:');}
+      if(debug){console.dir(opt);}
     }
   }else{
     //console.log('RND num');
